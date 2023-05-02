@@ -10,3 +10,21 @@ h6,
 a {
   font-family: 'Nunito', sans-serif;
 }
+
+button {
+  padding: 0.8rem 1.8rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: 2.5px solid #000000;
+  border-radius: 5px;
+  background: #ff7051;
+  color: #000000;
+}
+
+.shadow {
+  filter: drop-shadow(4px 4px 0px #000);
+}
+
+.border-bottom {
+  border-bottom: 1.5px solid #000000;
+}

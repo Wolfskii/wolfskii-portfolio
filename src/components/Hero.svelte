@@ -2,10 +2,11 @@
 
 </script>
 
-<section class="hero">
+<section class="hero border-bottom">
   <div class="hero-container">
     <h1 class="hero-heading">Knock, knock!</h1>
     <h2 class="hero-subheading">Who's there? A full-stack web developer!</h2>
+    <button class="shadow">Click me</button>
   </div>
 </section>
 
@@ -22,19 +23,21 @@
 
 .hero-container {
   max-width: 800px;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-heading {
   color: #000000;
   font-size: 4rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .hero-subheading {
   color: #000000;
   font-size: 2rem;
   font-weight: 400;
+  margin-bottom: 1.5rem;
 }
+
 </style>

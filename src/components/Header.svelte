@@ -21,7 +21,7 @@
   }
 </script>
 
-<header>
+<header class="border-bottom">
   <div class="header-left">
     {#if logo}
       <img src={logo} alt="Logo" />
@@ -57,8 +57,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   }
 
   .header-left img {
@@ -96,6 +94,10 @@
     text-transform: uppercase;
   }
 
+    .header-right .action-button {
+    background: #ffffff;
+  }
+
   .menu-toggle {
     display: none;
     position: absolute;
@@ -127,18 +129,6 @@
 
   .menu-toggle span:nth-child(3) {
     bottom: 0;
-  }
-
-  .header-right .action-button {
-    background-color: #000000;
-    color: #ffffff;
-    border: none;
-    padding: 0.8rem 1.2rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: inline-block;
   }
 
   @media screen and (max-width: 767px) {
