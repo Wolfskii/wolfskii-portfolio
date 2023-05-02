@@ -5,6 +5,7 @@
   import viteLogo from '/vite.svg'
   import ClientLogos from './components/ClientLogos.svelte'
    import AboutMe from './components/AboutMe.svelte'
+  import Projects from './components/Projects.svelte'
 </script>
 
 <Header></Header>
@@ -13,6 +14,7 @@
   <Hero></Hero>
   <ClientLogos></ClientLogos>
   <AboutMe></AboutMe>
+  <Projects></Projects>
 </main>
 
 <style>

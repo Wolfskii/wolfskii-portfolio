@@ -2,9 +2,9 @@
   import selfieImg from '../assets/selfie.jpg'
 </script>
 
-<div class="about-me">
+<div class="about-me border-bottom">
   <div class="about-me-content">
-    <div class="about-me-image shadow">
+    <div class="about-me-image shadow wobble">
       <img src={selfieImg} alt="Portrait Selfie" />
     </div>
 
@@ -17,7 +17,7 @@
 
 <style>
   .about-me {
-    padding: 3rem;
+    padding: 4rem;
     text-align: left;
     background-color: #CEEADD;
   }
@@ -31,7 +31,7 @@
   }
 
   .about-me-text {
-    max-width: 600px;
+    max-width: 800px;
   }
 
   .about-me-text h2 {

@@ -6,7 +6,7 @@
   <div class="hero-container">
     <h1 class="hero-heading">Knock, knock!</h1>
     <h2 class="hero-subheading">Who's there? A full-stack web developer!</h2>
-    <button class="shadow">Click me</button>
+    <button class="shadow wobble">Click me</button>
   </div>
 </section>
 
