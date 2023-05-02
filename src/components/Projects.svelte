@@ -39,7 +39,7 @@
   ];
 </script>
 
-<div class="projects-container">
+<div class="projects-container border-bottom">
   <h2>My projects</h2>
   <div class="projects">
     {#each projects as project}

@@ -6,6 +6,7 @@
   import ClientLogos from './components/ClientLogos.svelte'
    import AboutMe from './components/AboutMe.svelte'
   import Projects from './components/Projects.svelte'
+  import WorkExperience from './components/WorkExperience.svelte'
 </script>
 
 <Header></Header>
@@ -15,6 +16,7 @@
   <ClientLogos></ClientLogos>
   <AboutMe></AboutMe>
   <Projects></Projects>
+  <WorkExperience></WorkExperience>
 </main>
 
 <style>
