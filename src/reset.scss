@@ -1,0 +1,73 @@
+/* reset.scss */
+
+/* Box sizing rules */
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+/* Remove default margin and padding */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove list styles on ul, ol elements */
+ol,
+ul {
+  list-style: none;
+}
+
+/* Set default font size and line height */
+body {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Remove default text-decoration */
+a {
+  text-decoration: none;
+}
+
+/* Remove outline on focus */
+:focus {
+  outline: none;
+}
+
+/* Remove default border on inputs */
+input,
+textarea {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+/* Remove default background color */
+button,
+input[type='submit'] {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Remove default user-agent styling */
+button,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
