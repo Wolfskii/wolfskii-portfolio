@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages on Merge or Push to Main branch
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - name: Checkout code 🛎️
+        uses: actions/checkout@v2
+      - name: Set Git user identity
+        run: |
+          git config --global user.name "Wolfskii"
+          git config --global user.email "dawid.kaleta@outlook.com"
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy
+          token: ${{ secrets.GH_TOKEN }} # The secret to use for authentication
