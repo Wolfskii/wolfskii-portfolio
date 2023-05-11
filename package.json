@@ -1,25 +1,41 @@
 {
-  "name": "neobrutalist-dev-portfolio",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "start": "vite",
-    "dev": "vite",
-    "build": "vite build",
-    "deploy": "vite build && gh-pages -d build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.0.3",
-    "@tsconfig/svelte": "^4.0.1",
-    "@types/node": "^18.16.3",
-    "gh-pages": "^5.0.0",
-    "svelte": "^3.57.0",
-    "svelte-check": "^2.10.3",
-    "tslib": "^2.5.0",
-    "typescript": "^5.0.2",
-    "vite": "^4.3.2"
-  }
+	"name": "neobrutalist-dev-portfolio",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev --host 0.0.0.0 --port 3000",
+		"start": "cross-env NAME=$npm_package_name concurrently \"npm run dev\" \"lt --port 3000 --subdomain ${NAME}-webble\"",
+		"build": "vite build",
+		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"format": "prettier --plugin-search-dir . --write .",
+		"deploy": "vite build && gh-pages -d build",
+		"preview": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^2.0.3",
+		"@tsconfig/svelte": "^4.0.1",
+		"@types/node": "^18.16.3",
+		"concurrently": "^8.0.1",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.28.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-config-standard": "^17.0.0",
+		"eslint-plugin-import": "^2.27.4",
+		"eslint-plugin-node": "^11.1.0",
+		"eslint-plugin-promise": "^6.1.1",
+		"eslint-plugin-standard": "^5.0.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"gh-pages": "^5.0.0",
+		"localtunnel": "^2.0.2",
+		"prettier": "^2.8.0",
+		"prettier-plugin-svelte": "^2.8.1",
+		"sass": "^1.57.1",
+		"svelte": "^3.57.0",
+		"svelte-check": "^2.10.3",
+		"tslib": "^2.5.0",
+		"typescript": "^5.0.2",
+		"vite": "^4.3.2"
+	}
 }
