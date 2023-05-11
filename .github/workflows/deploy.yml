@@ -33,4 +33,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build # The folder the action should deploy
-          token: ${{ secrets.GH_TOKEN }} # The secret to use for authentication
+          token: ${{ secrets.GH_TOKEN }} # The secret to use for authentication (don't forget to add it to the repo!)
