@@ -88,6 +88,59 @@ button {
 	border-bottom: 1.5px solid #000000;
 }
 
+.underline-animation {
+	font-size: 1.2rem;
+	text-decoration: none;
+	position: relative;
+}
+
+.underline-animation:hover,
+.underline-animation:focus {
+	color: #ffffff;
+}
+
+.underline-animation::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: -3px;
+	width: 0;
+	height: 3px;
+	background-color: #ffffff;
+	transition: width 0.3s ease;
+}
+
+.underline-animation:hover::after,
+.underline-animation:focus::after {
+	width: 100%;
+}
+
+.underline-animation:hover::after {
+	right: auto;
+	left: 0;
+}
+
+.underline-animation::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -3px;
+	width: 0;
+	height: 3px;
+	background-color: #ffffff;
+	transition: width 0.3s ease;
+}
+
+.underline-animation:hover::before,
+.underline-animation:focus::before {
+	width: 100%;
+}
+
+.underline-animation:focus::before {
+	right: 0;
+	left: auto;
+}
+
 .wobble {
 	transition: transform 0.3s ease-in-out;
 

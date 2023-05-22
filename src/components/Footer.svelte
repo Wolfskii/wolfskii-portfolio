@@ -47,7 +47,7 @@
 			<ul>
 				{#each links as link}
 					<li>
-						<a href={link.href}>{link.label} </a>
+						<a href={link.href} class="underline-animation">{link.label}</a>
 					</li>
 				{/each}
 			</ul>
@@ -73,6 +73,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 3rem;
+		justify-content: space-between;
 	}
 
 	.footer-left {
@@ -92,6 +93,11 @@
 		gap: 0.5rem;
 		justify-content: center;
 	}
+
+	.social-link {
+		height: 32px;
+	}
+
 	.social-icon {
 		width: 2rem;
 	}
@@ -99,5 +105,9 @@
 	.footer-links ul {
 		display: flex;
 		gap: 2rem;
+	}
+
+	.footer-copyright p {
+		font-size: 1.3rem;
 	}
 </style>
