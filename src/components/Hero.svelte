@@ -9,7 +9,7 @@
 			<img src={sparkles} alt="sparkles" />
 		</div>
 		<h1 class="hero-heading">Knock, knock!</h1>
-		<h2 class="hero-subheading">Who's there? A full-stack web developer!</h2>
+		<p class="hero-subheading">Who's there? A full-stack web developer!</p>
 		<button class="shadow wobble" on:click={() => Interactions.click()}>Click me</button>
 	</div>
 </section>
