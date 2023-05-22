@@ -59,55 +59,55 @@
 	</div>
 </footer>
 
-<style>
+<style lang="scss">
 	footer {
 		background-color: #000000;
 		color: #ffffff;
 		display: flex;
 		justify-content: space-between;
 		padding: 4rem;
-	}
 
-	.footer-left,
-	.footer-right {
-		display: flex;
-		flex-direction: column;
-		gap: 3rem;
-		justify-content: space-between;
-	}
+		.footer-left,
+		.footer-right {
+			display: flex;
+			flex-direction: column;
+			gap: 3rem;
+			justify-content: space-between;
+		}
 
-	.footer-left {
-		align-items: flex-start;
-	}
+		.footer-left {
+			align-items: flex-start;
 
-	.footer-right {
-		align-items: flex-end;
-	}
+			.footer-logo p {
+				font-size: 1.8rem;
+			}
 
-	.footer-logo p {
-		font-size: 1.8rem;
-	}
+			.footer-socials {
+				display: flex;
+				gap: 0.5rem;
+				justify-content: center;
+			}
 
-	.footer-socials {
-		display: flex;
-		gap: 0.5rem;
-		justify-content: center;
-	}
+			.social-link {
+				height: 32px;
+			}
 
-	.social-link {
-		height: 32px;
-	}
+			.social-icon {
+				width: 2rem;
+			}
+		}
 
-	.social-icon {
-		width: 2rem;
-	}
+		.footer-right {
+			align-items: flex-end;
 
-	.footer-links ul {
-		display: flex;
-		gap: 2rem;
-	}
+			.footer-links ul {
+				display: flex;
+				gap: 2rem;
+			}
 
-	.footer-copyright p {
-		font-size: 1.3rem;
+			.footer-copyright p {
+				font-size: 1.3rem;
+			}
+		}
 	}
 </style>
