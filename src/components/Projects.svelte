@@ -1,120 +1,258 @@
-<script>
+<script lang="ts">
 	import Interactions from '../utils/interactions'
+	import { projects, labChips, type Project } from '../data/site'
 
-	const projects = [
-		{
-			name: 'Project 1',
-			img: 'https://images.unsplash.com/photo-1683016390026-b5087a17e21f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-			link: 'https://example.com/project1',
-			repo: 'https://github.com/example/project1'
-		},
-		{
-			name: 'Project 2',
-			img: 'https://images.unsplash.com/photo-1682862516196-0ed3cb7d8f42?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1106&q=80',
-			link: 'https://example.com/project2',
-			repo: 'https://github.com/example/project2'
-		},
-		{
-			name: 'Project 3',
-			img: 'https://images.unsplash.com/photo-1682861941586-f90d0ea62cbb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-			link: 'https://example.com/project3',
-			repo: 'https://github.com/example/project3'
-		},
-		{
-			name: 'Project 4',
-			img: 'https://images.unsplash.com/photo-1683016390026-b5087a17e21f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-			link: 'https://example.com/project1',
-			repo: 'https://github.com/example/project1'
-		},
-		{
-			name: 'Project 5',
-			img: 'https://images.unsplash.com/photo-1682862516196-0ed3cb7d8f42?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1106&q=80',
-			link: 'https://example.com/project2',
-			repo: 'https://github.com/example/project2'
-		},
-		{
-			name: 'Project 6',
-			img: 'https://images.unsplash.com/photo-1682861941586-f90d0ea62cbb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-			link: 'https://example.com/project3',
-			repo: 'https://github.com/example/project3'
-		}
-	]
-</script>
+	const filters = ['All', 'Games', 'Products', 'Client', 'Lab'] as const
+	let filter: (typeof filters)[number] = 'All'
 
-<div class="projects-container border-bottom">
-	<h2>My projects</h2>
-	<div class="projects">
-		{#each projects as project}
-			<div class="project shadow wobble" on:click={() => Interactions.click()}>
-				<a href={project.link}
-					><div class="project-img" style="background-image: url('{project.img}')">
-						<div class="project-footer">
-							<span class="project-name">{project.name}</span>
-							<a href={project.repo}><div class="project-repo">GitHub</div></a>
-						</div>
-					</div></a
-				>
-			</div>
-		{/each}
-	</div>
-</div>
+	$: visible = projects.filter((p) => filter === 'All' || p.category === filter)
 
-<style>
-	.projects-container {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		gap: 2rem;
-		padding: 4rem;
+	function setFilter(next: (typeof filters)[number]) {
+		Interactions.click()
+		filter = next
 	}
 
-	.projects {
+	function ping() {
+		Interactions.click()
+	}
+
+	function cardStyle(project: Project) {
+		return `background: ${project.color}`
+	}
+</script>
+
+<section id="projects" class="section">
+	<div class="section-inner">
+		<span class="kicker">Selected work</span>
+		<h2>Receipts, not vibes.</h2>
+		<p class="lede">
+			A mix of games, products, client sites, and lab experiments. Some are loud. Some just work on
+			a Tuesday. All of them had to leave my machine.
+		</p>
+
+		<div class="filters" role="tablist" aria-label="Filter projects">
+			{#each filters as item}
+				<button
+					class="chip"
+					class:active={filter === item}
+					type="button"
+					on:click={() => setFilter(item)}
+				>
+					{item}
+				</button>
+			{/each}
+		</div>
+
+		<div class="grid">
+			{#each visible as project (project.name)}
+				<article class="project card">
+					<div class="thumb" style={cardStyle(project)}>
+						<span class="mark">{project.mark}</span>
+						<span class="cat">{project.category}</span>
+					</div>
+					<div class="body">
+						<h3>{project.name}</h3>
+						<p>{project.blurb}</p>
+						<ul class="tags">
+							{#each project.tags as tag}
+								<li>{tag}</li>
+							{/each}
+						</ul>
+						<div class="links">
+							{#if project.live}
+								<a class="btn" href={project.live} target="_blank" rel="noreferrer" on:click={ping}
+									>{project.cta}</a
+								>
+							{/if}
+							{#if project.repo}
+								<a
+									class="btn"
+									class:btn-white={Boolean(project.live)}
+									href={project.repo}
+									target="_blank"
+									rel="noreferrer"
+									on:click={ping}>{project.live ? 'Repo' : project.cta}</a
+								>
+							{/if}
+							{#if !project.live && !project.repo}
+								<span class="soon">{project.cta} · soon</span>
+							{/if}
+						</div>
+					</div>
+				</article>
+			{/each}
+		</div>
+
+		<div class="lab">
+			<h3>Also on the bench</h3>
+			<p>Smaller, weirder, or still growing a spine.</p>
+			<ul>
+				{#each labChips as chip}
+					<li>
+						<a class="card" href={chip.href} target="_blank" rel="noreferrer" on:click={ping}>
+							<strong>{chip.name}</strong>
+							<span>{chip.note}</span>
+						</a>
+					</li>
+				{/each}
+			</ul>
+		</div>
+	</div>
+</section>
+
+<style>
+	.section {
+		background: var(--white);
+	}
+
+	h2 {
+		filter: drop-shadow(3px 3px 0 var(--gold));
+	}
+
+	.filters {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		align-items: center;
-		background-color: #ffffff;
-		gap: 1.5rem;
+		gap: 0.5rem;
+		margin: 1.6rem 0 1.8rem;
+	}
+
+	.chip {
+		border: var(--border);
+		border-radius: 999px;
+		padding: 0.4rem 0.85rem;
+		font-weight: 700;
+		font-size: 0.85rem;
+		background: var(--paper);
+		box-shadow: 3px 3px 0 var(--ink);
+	}
+
+	.chip.active {
+		background: var(--coral);
+	}
+
+	.grid {
+		display: grid;
+		gap: 1.15rem;
 	}
 
 	.project {
-		margin: 1rem;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
 	}
 
-	.project-img {
-		width: 500px;
-		height: 350px;
-		background-size: cover;
-		background-position: center;
-		position: relative;
-		cursor: pointer;
-	}
-
-	.project-footer {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background-color: #ffffff;
-		color: #000000;
+	.thumb {
+		min-height: 8.5rem;
+		padding: 1rem 1.1rem;
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-start;
+		border-bottom: var(--border);
 	}
 
-	.project-name {
-		font-size: 1.2rem;
+	.mark {
+		font-family: var(--display);
+		font-size: clamp(2.4rem, 8vw, 3.4rem);
+		line-height: 0.8;
+		letter-spacing: -0.04em;
+	}
+
+	.cat {
+		font-size: 0.72rem;
 		font-weight: 700;
-		padding: 0.6rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		background: var(--ink);
+		color: var(--white);
+		padding: 0.25rem 0.45rem;
 	}
 
-	.project-repo {
-		background-color: #1f1f1f;
-		color: #ffffff;
-		border: none;
-		padding: 0.6rem;
-		cursor: pointer;
-		font-size: 1.2rem;
+	.body {
+		padding: 1.1rem 1.1rem 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		flex: 1;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+	}
+
+	.tags li {
+		font-size: 0.72rem;
+		font-weight: 700;
+		border: 2px solid var(--ink);
+		padding: 0.15rem 0.4rem;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: auto;
+	}
+
+	.links .btn {
+		padding: 0.55rem 0.85rem;
+		font-size: 0.85rem;
+	}
+
+	.soon {
+		font-size: 0.85rem;
+		font-weight: 700;
+	}
+
+	.lab {
+		margin-top: 3rem;
+	}
+
+	.lab h3 {
+		margin-bottom: 0.35rem;
+	}
+
+	.lab > p {
+		margin-bottom: 1rem;
+	}
+
+	.lab ul {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.7rem;
+	}
+
+	.lab a {
+		display: block;
+		padding: 0.85rem 0.8rem;
+		background: var(--paper);
+		height: 100%;
+	}
+
+	.lab strong {
+		display: block;
+		font-size: 0.95rem;
+		margin-bottom: 0.2rem;
+	}
+
+	.lab span {
+		font-size: 0.8rem;
+	}
+
+	@media (min-width: 720px) {
+		.grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
+		.lab ul {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 419px) {
+		.lab ul {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

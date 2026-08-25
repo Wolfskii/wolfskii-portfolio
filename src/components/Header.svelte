@@ -1,128 +1,190 @@
 <script lang="ts">
-	import logo from '../assets/svelte.svg'
+	import logo from '../assets/logo.svg'
 	import Interactions from '../utils/interactions'
+	import { navLinks } from '../data/site'
 
-	let links = [
-		{ label: 'Start', href: '#' },
-		{ label: 'Om mig', href: '#' },
-		{ label: 'Projekt', href: '#' },
-		{ label: 'Erfarenheter', href: '#' },
-		{ label: 'Färdigheter', href: '#' },
-		{ label: 'Kontakta mig', href: '#' }
-	]
 	let isMenuOpen = false
-	let actionLabel = 'Kontakt'
+
+	function setMenu(open: boolean) {
+		isMenuOpen = open
+		if (typeof document !== 'undefined') {
+			document.body.classList.toggle('nav-open', open)
+		}
+	}
 
 	function toggleMenu() {
 		Interactions.click()
-		console.log('Toggle menu clicked')
-		isMenuOpen = !isMenuOpen
+		setMenu(!isMenuOpen)
 	}
 
-	function onActionClick(event) {
+	function onNavClick() {
 		Interactions.click()
-		console.log('Action button clicked', event)
+		setMenu(false)
+	}
+
+	function onHireClick() {
+		Interactions.click()
+		setMenu(false)
+	}
+
+	function onKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && isMenuOpen) setMenu(false)
 	}
 </script>
 
-<header class="border-bottom">
-	<div class="header-left">
-		{#if logo}
-			<img src={logo} alt="Logo" on:click={() => Interactions.click()} />
-		{/if}
-	</div>
-	<nav class="header-center">
-		<ul class:open={isMenuOpen}>
-			{#each links as link}
-				<li on:click={() => Interactions.click()}>
-					<a href={link.href}>{link.label} </a>
+<svelte:window on:keydown={onKeydown} />
+
+<header>
+	<a class="brand" href="#start" on:click={onNavClick}>
+		<img src={logo} alt="" width="40" height="40" />
+		<span>
+			<strong>Wolfskii</strong>
+			<small>Dawid Kaleta</small>
+		</span>
+	</a>
+
+	<nav class="desktop-nav" aria-label="Primary">
+		<ul>
+			{#each navLinks as link}
+				<li>
+					<a href={link.href} on:click={onNavClick}>{link.label}</a>
 				</li>
 			{/each}
 		</ul>
-		<button class="menu-toggle" on:click={toggleMenu}>
-			<span />
-			<span />
-			<span />
-		</button>
 	</nav>
-	<div class="header-right">
-		{#if actionLabel && onActionClick && window.innerWidth >= 768}
-			<button class="action-button" on:click={onActionClick}>
-				{actionLabel}
-			</button>
-		{/if}
-	</div>
+
+	<a class="btn btn-yellow hire" href="#contact" on:click={onHireClick}>Hire me</a>
+
+	<button
+		class="menu-toggle"
+		class:open={isMenuOpen}
+		aria-expanded={isMenuOpen}
+		aria-controls="mobile-nav"
+		aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+		on:click={toggleMenu}
+	>
+		<span />
+		<span />
+		<span />
+	</button>
 </header>
+
+{#if isMenuOpen}
+	<button class="backdrop" type="button" aria-label="Close menu" on:click={() => setMenu(false)} />
+{/if}
+
+<nav id="mobile-nav" class="mobile-nav" class:open={isMenuOpen} aria-label="Mobile">
+	<ul>
+		{#each navLinks as link}
+			<li>
+				<a href={link.href} on:click={onNavClick}>{link.label}</a>
+			</li>
+		{/each}
+	</ul>
+	<a class="btn" href="#contact" on:click={onHireClick}>Let’s talk</a>
+</nav>
 
 <style>
 	header {
+		position: sticky;
+		top: 0;
+		z-index: 80;
 		display: flex;
-		justify-content: space-between;
 		align-items: center;
-		padding: 1rem;
+		gap: 1rem;
+		min-height: var(--header-h);
+		padding: 0.65rem 1rem;
+		background: var(--white);
+		border-bottom: var(--border);
 	}
 
-	.header-left img {
-		height: 3rem;
-	}
-
-	.header-center ul {
+	.brand {
 		display: flex;
-		justify-content: center;
 		align-items: center;
-		margin: 0;
-		padding: 0;
-		height: 100%;
+		gap: 0.7rem;
+		min-width: 0;
+		margin-right: auto;
 	}
 
-	.header-center ul.open {
-		height: 100vh;
-		position: absolute;
-		top: 4rem;
-		left: 0;
-		right: 0;
-		background-color: #ffffff;
+	.brand img {
+		width: 2.5rem;
+		height: 2.5rem;
+		flex-shrink: 0;
+		border: 3px solid var(--ink);
+		border-radius: 6px;
+		box-shadow: 3px 3px 0 var(--ink);
 	}
 
-	.header-center li {
-		margin-bottom: 1rem;
-		margin-right: 1rem;
+	.brand span {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.05;
 	}
 
-	.header-center a {
-		color: #000000;
-		font-weight: 500;
-		font-size: 1.2rem;
-		text-decoration: none;
+	.brand strong {
+		font-family: var(--display);
+		font-size: 1.05rem;
+		letter-spacing: -0.03em;
+	}
+
+	.brand small {
+		font-size: 0.72rem;
+		font-weight: 600;
+		opacity: 0.7;
+	}
+
+	.desktop-nav {
+		display: none;
+	}
+
+	.desktop-nav ul {
+		display: flex;
+		align-items: center;
+		gap: 0.15rem;
+	}
+
+	.desktop-nav a {
+		display: block;
+		padding: 0.45rem 0.7rem;
+		font-size: 0.92rem;
+		font-weight: 700;
 		text-transform: uppercase;
+		letter-spacing: 0.04em;
 	}
 
-	.header-right .action-button {
-		background: #ffffff;
+	.desktop-nav a:hover {
+		background: var(--yellow);
+		box-shadow: inset 0 -3px 0 var(--ink);
+	}
+
+	.hire {
+		display: none;
+		padding: 0.6rem 1rem;
+		font-size: 0.88rem;
 	}
 
 	.menu-toggle {
-		display: none;
-		position: absolute;
-		top: 1rem;
-		right: 1rem;
-		width: 2rem;
-		height: 2rem;
-		background-color: transparent;
-		border: none;
-		cursor: pointer;
+		position: relative;
+		width: 2.6rem;
+		height: 2.6rem;
+		flex-shrink: 0;
+		border: var(--border);
+		border-radius: 6px;
+		background: var(--yellow);
+		box-shadow: 3px 3px 0 var(--ink);
 	}
 
 	.menu-toggle span {
 		position: absolute;
-		width: 100%;
+		left: 0.45rem;
+		right: 0.45rem;
 		height: 3px;
-		background-color: #000000;
-		transition: transform 0.3s ease-in-out;
+		background: var(--ink);
+		transition: transform 0.2s ease, top 0.2s ease, opacity 0.2s ease;
 	}
 
 	.menu-toggle span:nth-child(1) {
-		top: 0;
+		top: 0.7rem;
 	}
 
 	.menu-toggle span:nth-child(2) {
@@ -131,67 +193,95 @@
 	}
 
 	.menu-toggle span:nth-child(3) {
-		bottom: 0;
+		bottom: 0.7rem;
+		top: auto;
 	}
 
-	@media screen and (max-width: 767px) {
-		.header-center {
-			position: relative;
-			width: 100%;
+	.menu-toggle.open span:nth-child(1) {
+		top: 50%;
+		transform: translateY(-50%) rotate(45deg);
+	}
+
+	.menu-toggle.open span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.menu-toggle.open span:nth-child(3) {
+		top: 50%;
+		bottom: auto;
+		transform: translateY(-50%) rotate(-45deg);
+	}
+
+	.backdrop {
+		position: fixed;
+		inset: var(--header-h) 0 0;
+		z-index: 60;
+		width: 100%;
+		height: auto;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		box-shadow: none;
+		background: rgba(17, 17, 17, 0.35);
+	}
+
+	.mobile-nav {
+		position: fixed;
+		z-index: 70;
+		top: var(--header-h);
+		right: 0;
+		left: 0;
+		display: none;
+		flex-direction: column;
+		gap: 1.5rem;
+		padding: 1.5rem 1.25rem 2rem;
+		background: var(--yellow);
+		border-bottom: var(--border);
+		max-height: calc(100vh - var(--header-h));
+		overflow: auto;
+	}
+
+	.mobile-nav.open {
+		display: flex;
+		min-height: calc(100vh - var(--header-h));
+		min-height: calc(100dvh - var(--header-h));
+	}
+
+	.mobile-nav a {
+		font-family: var(--display);
+		font-size: clamp(1.8rem, 8vw, 2.6rem);
+		letter-spacing: -0.03em;
+	}
+
+	.mobile-nav .btn {
+		align-self: flex-start;
+		font-family: var(--font);
+		font-size: 1rem;
+	}
+
+	@media (min-width: 900px) {
+		header {
+			padding: 0.65rem 1.5rem;
 		}
 
-		.menu-toggle {
+		.desktop-nav {
 			display: block;
 		}
 
-		.header-left img {
-			height: 2.5rem;
+		.hire {
+			display: inline-flex;
 		}
 
-		.header-center ul {
+		.menu-toggle,
+		.mobile-nav,
+		.backdrop {
+			display: none !important;
+		}
+	}
+
+	@media (max-width: 420px) {
+		.brand small {
 			display: none;
-			width: 100%;
-		}
-
-		.header-center li {
-			margin-bottom: 0.5rem;
-		}
-
-		.header-center a {
-			font-size: 1.1rem;
-		}
-
-		.header-center ul.open {
-			height: 100vh;
-			position: absolute;
-			top: 4rem;
-			left: 0;
-			right: 0;
-			background-color: #ffffff;
-		}
-
-		.header-right .action-button {
-			display: none;
-		}
-
-		@media screen and (min-width: 768px) {
-			/* Styles for larger screens (e.g., tablets, desktops) */
-			.header-center ul {
-				height: 100%;
-			}
-
-			.header-center li {
-				margin-bottom: 0;
-				margin-right: 1rem;
-			}
-
-			.menu-toggle {
-				display: none;
-			}
-
-			.header-right .action-button {
-				display: inline-block;
-			}
 		}
 	}
 </style>

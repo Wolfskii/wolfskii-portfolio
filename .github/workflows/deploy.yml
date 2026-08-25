@@ -13,16 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
     steps:
       - name: Checkout code 🛎️
-        uses: actions/checkout@v2
-      - name: Set Git user identity
-        run: |
-          git config --global user.name "Wolfskii"
-          git config --global user.email "dawid.kaleta@outlook.com"
+        uses: actions/checkout@v4
       - name: Setup Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install and Build 🔧
@@ -32,5 +28,5 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # The folder the action should deploy
-          token: ${{ secrets.GH_TOKEN }} # The secret to use for authentication (don't forget to add it to the repo!)
+          folder: build
+          token: ${{ secrets.GH_TOKEN }}

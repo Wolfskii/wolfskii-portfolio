@@ -1,8 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 @import 'reset.scss';
+
+:root {
+	--ink: #111111;
+	--paper: #fff8e8;
+	--white: #ffffff;
+	--yellow: #fede65;
+	--coral: #ff7051;
+	--mint: #ceeadd;
+	--gold: #ffc700;
+	--pink: #ff90e8;
+	--cyan: #7df9ff;
+	--lime: #b8ff3c;
+	--violet: #c4b5fd;
+	--shadow: 4px 4px 0 var(--ink);
+	--shadow-lg: 8px 8px 0 var(--ink);
+	--border: 3px solid var(--ink);
+	--radius: 8px;
+	--header-h: 4.5rem;
+	--font: 'Space Grotesk', 'Nunito', system-ui, sans-serif;
+	--display: 'Archivo Black', 'Space Grotesk', sans-serif;
+	--max: 1120px;
+}
 
 html {
 	font-size: 100%;
+	scroll-behavior: smooth;
+	scroll-padding-top: calc(var(--header-h) + 0.75rem);
+}
+
+body {
+	font-family: var(--font);
+	font-size: 1.05rem;
+	line-height: 1.55;
+	color: var(--ink);
+	background: var(--paper);
+	overflow-x: hidden;
+}
+
+body.nav-open {
+	overflow: hidden;
+}
+
+#app {
+	min-height: 100vh;
 }
 
 h1,
@@ -10,144 +51,148 @@ h2,
 h3,
 h4,
 h5,
-h6,
-p,
-a {
-	font-family: 'Nunito', sans-serif;
+h6 {
+	font-family: var(--display);
+	line-height: 0.95;
+	letter-spacing: -0.03em;
+	font-weight: 400;
 }
 
 h1 {
-	font-size: 3.6rem;
-	line-height: 1.2;
-	filter: drop-shadow(4px 4px 0px #ff7051);
+	font-size: clamp(2.6rem, 9vw, 5.6rem);
 }
 
 h2 {
-	font-size: 2.8rem;
-	line-height: 1.2;
-	filter: drop-shadow(4px 4px 0px #fede65);
+	font-size: clamp(2rem, 6vw, 3.6rem);
 }
 
 h3 {
-	font-size: 2.2rem;
-	line-height: 1.2;
-	filter: drop-shadow(4px 4px 0px #fede65);
-}
-
-h4 {
-	font-size: 1.8rem;
-	line-height: 1.2;
-	filter: drop-shadow(4px 4px 0px #fede65);
-}
-
-h5 {
-	font-size: 1.6rem;
-	line-height: 1.2;
-}
-
-h6 {
-	font-size: 1.4rem;
-	line-height: 1.2;
+	font-size: clamp(1.4rem, 3vw, 2rem);
 }
 
 p {
-	font-size: 1.4rem;
-	line-height: 1.5;
+	font-size: clamp(1rem, 1.5vw, 1.15rem);
+	line-height: 1.6;
 }
 
-a {
-	font-size: 1.4rem;
-	line-height: 1.5;
-}
-
-button {
-	padding: 0.8rem 1.8rem;
-	font-size: 1.2rem;
+.skip-link {
+	position: absolute;
+	left: 1rem;
+	top: -100px;
+	z-index: 400;
+	background: var(--yellow);
+	border: var(--border);
+	padding: 0.6rem 1rem;
 	font-weight: 700;
-	border: 3px solid #000000;
-	border-radius: 5px;
-	background: #ff7051;
-	color: #000000;
 }
 
-.shadow {
-	filter: drop-shadow(4px 4px 0px #000000);
-	border: 3px solid #000000;
-	border-radius: 5px;
+.skip-link:focus {
+	top: 1rem;
 }
 
-.text-shadow {
-	filter: drop-shadow(4px 4px 0px #ff7051);
+.section {
+	padding: clamp(3.25rem, 8vw, 6.5rem) clamp(1rem, 4vw, 3.25rem);
+	border-bottom: var(--border);
 }
 
-.text-shadow-secondary {
-	filter: drop-shadow(4px 4px 0px #ffc700);
+.section-inner {
+	max-width: var(--max);
+	margin: 0 auto;
 }
 
-.border-bottom {
-	border-bottom: 1.5px solid #000000;
+.kicker {
+	display: inline-block;
+	font-family: var(--font);
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	background: var(--ink);
+	color: var(--white);
+	padding: 0.28rem 0.55rem;
+	margin-bottom: 0.85rem;
 }
 
-.underline-animation {
-	font-size: 1.2rem;
-	text-decoration: none;
-	position: relative;
+.lede {
+	max-width: 42rem;
+	margin-top: 1rem;
+	font-size: clamp(1.05rem, 2vw, 1.25rem);
+	font-weight: 500;
 }
 
-.underline-animation:hover,
-.underline-animation:focus {
-	color: #ffffff;
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.4rem;
+	padding: 0.75rem 1.25rem;
+	font-family: var(--font);
+	font-size: 0.95rem;
+	font-weight: 700;
+	line-height: 1;
+	border: var(--border);
+	border-radius: 6px;
+	background: var(--coral);
+	color: var(--ink);
+	box-shadow: var(--shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+	text-align: center;
 }
 
-.underline-animation::after {
-	content: '';
-	position: absolute;
-	right: 0;
-	bottom: -3px;
-	width: 0;
-	height: 3px;
-	background-color: #ffffff;
-	transition: width 0.3s ease;
+.btn:hover,
+.btn:focus-visible {
+	transform: translate(2px, 2px);
+	box-shadow: 2px 2px 0 var(--ink);
 }
 
-.underline-animation:hover::after,
-.underline-animation:focus::after {
-	width: 100%;
+.btn:active {
+	transform: translate(4px, 4px);
+	box-shadow: 0 0 0 var(--ink);
 }
 
-.underline-animation:hover::after {
-	right: auto;
-	left: 0;
+.btn-yellow {
+	background: var(--yellow);
 }
 
-.underline-animation::before {
-	content: '';
-	position: absolute;
-	left: 0;
-	bottom: -3px;
-	width: 0;
-	height: 3px;
-	background-color: #ffffff;
-	transition: width 0.3s ease;
+.btn-white {
+	background: var(--white);
 }
 
-.underline-animation:hover::before,
-.underline-animation:focus::before {
-	width: 100%;
+.btn-ink {
+	background: var(--ink);
+	color: var(--white);
 }
 
-.underline-animation:focus::before {
-	right: 0;
-	left: auto;
+.btn-ghost {
+	background: var(--white);
+}
+
+.card {
+	border: var(--border);
+	border-radius: var(--radius);
+	background: var(--white);
+	box-shadow: var(--shadow);
+}
+
+.stamp {
+	display: inline-block;
+	border: 3px solid var(--ink);
+	padding: 0.35rem 0.55rem;
+	font-family: var(--display);
+	font-size: 0.78rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	transform: rotate(var(--r, -6deg));
+	background: var(--c, var(--yellow));
+	box-shadow: 3px 3px 0 var(--ink);
+	white-space: nowrap;
 }
 
 .wobble {
 	transition: transform 0.3s ease-in-out;
 
 	&:hover {
-		animation: wobble 0.5s;
-		animation-timing-function: ease-out;
-		animation-fill-mode: forwards;
+		animation: wobble 0.5s ease-out forwards;
 	}
 }
 
@@ -155,22 +200,46 @@ button {
 	0% {
 		transform: translate(0, 0);
 	}
-	15% {
+	20% {
 		transform: translate(0, -5px) rotate(-2deg);
 	}
-	30% {
+	40% {
 		transform: translate(0, 0) rotate(2deg);
-	}
-	45% {
-		transform: translate(0, -5px) rotate(-2deg);
 	}
 	60% {
-		transform: translate(0, 0) rotate(2deg);
-	}
-	75% {
 		transform: translate(0, -5px) rotate(-2deg);
+	}
+	80% {
+		transform: translate(0, 0) rotate(2deg);
 	}
 	100% {
 		transform: translate(0, 0);
+	}
+}
+
+@keyframes marquee {
+	from {
+		transform: translateX(0);
+	}
+	to {
+		transform: translateX(-50%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	.wobble:hover {
+		animation: none;
 	}
 }

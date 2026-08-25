@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wolfskii">
+  <rect x="3" y="3" width="58" height="58" fill="#FEDE65" stroke="#111111" stroke-width="4"/>
+  <path fill="#111111" d="M18 44 L32 16 L46 44 H38 L32 32 L26 44 Z"/>
+  <rect x="22" y="46" width="20" height="5" fill="#111111"/>
+</svg>
